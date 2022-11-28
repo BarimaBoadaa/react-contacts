@@ -17,6 +17,16 @@ function App() {
     setContacts([...contacts, { name, number, location, id: uuid() }]);
   };
 
+  function handleEdit(id, newInfo) {
+    setContacts(
+      contacts.map((contact) => (contact.id === id ? newInfo : contact))
+    );
+  }
+
+  function handleDelete(id) {
+    setContacts(contacts.filter((contact) => contact.id !== id));
+  }
+
   return (
     <div className="container">
       <div className="row">
@@ -24,7 +34,11 @@ function App() {
           <ContactForm addContact={addContact} />
         </div>
         <div className="col-md-6">
-          <Contacts contacts={contacts} />
+          <Contacts
+            contacts={contacts}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
         </div>
       </div>
     </div>
